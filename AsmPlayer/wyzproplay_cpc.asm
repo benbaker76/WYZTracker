@@ -1,10 +1,10 @@
 ;       Exported routines
-;        public  wyz_play_frame
-;        public  wyz_play_song
-;        public  wyz_play_fx
-;        public  wyz_play_sound
-;        public  wyz_player_init
-;        public  wyz_player_stop
+        public  wyz_play_frame
+        public  wyz_play_song
+        public  wyz_play_fx
+        public  wyz_play_sound
+        public  wyz_player_init
+        public  wyz_player_stop
 
         include "wyzproplay47c_common.inc"
 
