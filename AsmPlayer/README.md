@@ -52,3 +52,11 @@ Called to plan an FX. The 'A' register should contain the index of the FX to pla
 * msx.img - MSX disk image
 * cpc.dsk - Amstrad CPC disk image
 * zx.tap - ZX Spectrum tape image
+
+## Usage Model
+
+The [Programmable Sound Generator](https://en.wikipedia.org/wiki/General_Instrument_AY-3-8910) (PSG) has 3 tone channels (A, B, C) and a noise generator which may be output to any (or all) of the tone channels via the mixer. The 3 tone channels map to channels 0-2 and the noise generator maps to the FX channel in WYZTracker. WYZTracker allows the FX channel to be output to any one of the PSG tone channels.
+
+If a song is played using the *wyz_play_song* API, the specified PSG channels will be utilized. If the song includes an FX track, it will be output using the *wyz_play_fx* API to the channel specified in WYZTracker. While a song is actively using the FX track, the *wyz_play_fx* API should not be used.
+
+Playing other sounds while a song is playing is possible, even if the FX track is being utilized, by using the *wyz_play_sound* API. Try to pick a lightly used PSG tone channel to minimize the interruption to the song.
