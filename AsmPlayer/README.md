@@ -60,3 +60,35 @@ The [Programmable Sound Generator](https://en.wikipedia.org/wiki/General_Instrum
 If a song is played using the *wyz_play_song* API, the specified PSG channels will be utilized. If the song includes an FX track, it will be output using the *wyz_play_fx* API to the channel specified in WYZTracker. While a song is actively using the FX track, the *wyz_play_fx* API should not be used.
 
 Playing other sounds while a song is playing is possible, even if the FX track is being utilized, by using the *wyz_play_sound* API. Try to pick a lightly used PSG tone channel to minimize the interruption to the song.
+
+## .MUS File Format (work in progress)
+
+|Byte#| Description            |
+|-----|------------------------|
+| 0   | Tempo                  |
+| 1   | Header: <br>Bit<br>0 = Loop<br>3-1 = FX Channel<br>6-4 = Channels |
+|2-3  | Reserved               |
+|4-5  | Loop offset, channel A |
+|6-7  | Loop offset, channel B |
+|8-9  | Loop offset, channel C |
+|10-11| Loop offset, channel P |
+|12.. | Channel A data         |
+| ..  | Channel B data         |
+| ..  | Channel C data         |
+| ..  | Channel P data         |
+
+### Channel Data
+
+Bits
+
+* 7-6 Length - Encoded as 2^(Length+1)
+* 5-0 Action
+  * 000000b (0x00) - End of channel data (length is also 00b)
+  * 000001b (0x01) - Silence
+  * 111110b (0x3e) - Punctillo?
+  * 111111b (0x3f) - Command (Length determines the bytes to follow)
+    * Length = 0 - 2 Bytes &lt;Instrument&gt; &lt;tempo modifier + volume modifier&gt;
+    * Length = 1 - 1 Byte &lt;Effect length and code&gt;
+      * Bits 7-6 Length, Encoded as 2^(Length+1)
+      * Bits 5-0 Code
+    * Length = 2 - 1 Byte &lt;Envelope&gt;
