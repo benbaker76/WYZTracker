@@ -6,6 +6,8 @@
         public  wyz_player_init
         public  wyz_player_stop
 
+        DEFINE  NMOS_Z80
+
         include "wyzproplay47c_common.inc"
 
 ROUT:   LD      A, (PSG_REG+13)
@@ -37,14 +39,23 @@ WRITEPSGHL:
         OUT     (C), A
         LD      BC, $F6C0
         OUT     (C), C
-        DB      $ED                     ; Undocumented op-code out(c), 0
+  IFDEF NMOS_Z80
+        DB      $ED                     ; Undocumented op-code out(c), 0 only on NMOS CPU's
         DB      $71
+  ELSE
+        LD      E, 0
+        OUT     (C), E
+  ENDIF
         LD      B, $F5
         OUTI
         LD      BC, $F680
         OUT     (C), C
-        DB      $ED                     ; Undocumented op-code out(c), 0
+  IFDEF NMOS_Z80
+        DB      $ED                     ; Undocumented op-code out(c), 0 only on NMOS CPU's
         DB      $71
+  ELSE
+        OUT     (C), E
+  ENDIF
         RET
 
         ;
