@@ -2,7 +2,7 @@
         ; Example song table setup
         ;
 TABLA_SONG:
-        dw      SONG_0	; , SONG_1, SONG_2
+        dw      SONG_0                  ; , SONG_1, SONG_2
 
         ;
         ; ASM file exported from WYZTracker

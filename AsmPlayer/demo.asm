@@ -10,13 +10,13 @@ _music:
         call    wyz_play_song
 loop:
         halt
-IFDEF   CPC
+  IFDEF CPC
         halt
         halt
         halt
         halt
         halt
-ENDIF
+  ENDIF
         call    wyz_play_frame
         jp      loop
 
