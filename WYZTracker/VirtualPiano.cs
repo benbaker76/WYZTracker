@@ -101,27 +101,31 @@ namespace WYZTracker
                     {
                         InputDevice inDevice = new InputDevice(0);
                         inDevice.ChannelMessageReceived += HandleChannelMessageReceived;
-                        _devices.Add(inDevice);
+                        try
 
-                        inDevice.StartRecording();
+                        {
+                            inDevice.StartRecording();
+                            inDevice.StartRecording();
+                            _devices.Add(inDevice);
+                        }
+                        catch (Sanford.Multimedia.Midi.InputDeviceException e)
+                        {
+                            try
+                            {
+                                inDevice.StopRecording();
+                            }
+                            catch (Exception e2)
+                            {
+                                Logger.Log(e2.ToString());
+                            }
+                            inDevice.Dispose();
+                            inDevice.ChannelMessageReceived -= HandleChannelMessageReceived;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                try
-                {
-                    foreach (InputDevice d in _devices)
-                    {
-                        d.Dispose();
-                    }
-                    _devices.Clear();
-                }
-                catch (Exception exc2)
-                {
-                    Logger.Log(exc2.ToString());
-                }
-
                 Logger.Log(ex.ToString());
             }
         }
@@ -222,6 +226,22 @@ namespace WYZTracker
                     addNoteToDictionary(1, 'A', '+', Keys.D7);
                     // B-1
                     addNoteToDictionary(1, 'B', char.MinValue, Keys.U);
+                    // C-2
+                    addNoteToDictionary(2, 'C', char.MinValue, Keys.I);
+                    // C#-2
+                    addNoteToDictionary(2, 'C', '+', Keys.D9);
+                    // D-2
+                    addNoteToDictionary(2, 'D', char.MinValue, Keys.O);
+                    // D#-2
+                    addNoteToDictionary(2, 'D', '+', Keys.D0);
+                    // E-2
+                    addNoteToDictionary(2, 'E', char.MinValue, Keys.P);
+                    // F-2
+                    addNoteToDictionary(2, 'F', char.MinValue, Keys.Oem1);
+                    // F#-2
+                    addNoteToDictionary(2, 'F', '#', Keys.Oem6);
+                    // G-2
+                    addNoteToDictionary(2, 'G', char.MinValue, Keys.Oemplus);
                     // Silencio
                     // P
                     addNoteToDictionary(int.MinValue, 'P', char.MinValue, Keys.Space);

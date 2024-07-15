@@ -23,5 +23,11 @@
     <Setting Name="KeyboardLayout" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+		<Setting Name="CheckFileAssociation" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">False</Value>
+		</Setting>
+		<Setting Name="ShowSplash" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">False</Value>
+		</Setting>
   </Settings>
 </SettingsFile>

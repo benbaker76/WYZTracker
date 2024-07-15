@@ -16,7 +16,7 @@ namespace WYZTracker
         [STAThread]
         static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.UnhandledException += 
+            AppDomain.CurrentDomain.UnhandledException +=
                 new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
             bool audioInitialized = PlaybackStreamer.IsAudioAvailable();
@@ -68,7 +68,7 @@ namespace WYZTracker
         {
             get
             {
-                int p = (int) Environment.OSVersion.Platform;
+                int p = (int)Environment.OSVersion.Platform;
                 return (p == 4) || (p == 6) || (p == 128);
             }
         }
@@ -81,7 +81,7 @@ namespace WYZTracker
                 {
                     createWYZFileAssociation();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Logger.Log(ex.ToString());
                 }
@@ -113,8 +113,14 @@ namespace WYZTracker
                 // Speed the cloning of songs a little...
                 SerializationUtils.Clone(new Song());
                 PlaybackStreamer.InitializeAudio();
-                Application.Run(new frmDockedMain(args));
-                PlaybackStreamer.StopAudio();
+                try
+                {
+                    Application.Run(new frmDockedMain(args));
+                }
+                finally
+                {
+                    PlaybackStreamer.StopAudio();
+                }
             }
         }
 
@@ -146,7 +152,7 @@ namespace WYZTracker
                 {
                     if (isMono)
                     {
-                        Process.Start("http://www.openal.org/creative-installers/");
+                        Process.Start("https://www.openal.org/downloads/");
                     }
                     else
                     {

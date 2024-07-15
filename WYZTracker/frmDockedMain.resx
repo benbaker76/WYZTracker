@@ -254,9 +254,10 @@
   <data name="pasteAsDelay.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="pasteAsDelay.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+	<!--
+	<data name="pasteAsDelay.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
     <value>Ctrl+Mayús.+V</value>
-  </data>
+  </data>-->
   <data name="pasteAsDelay.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 22</value>
   </data>

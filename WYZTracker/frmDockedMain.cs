@@ -788,12 +788,33 @@ namespace WYZTracker
         {
             if (this.lboxPatterns.SelectedIndex != -1)
             {
-                this.currentSong.PlayOrder.RemoveAt(this.lboxPatterns.SelectedIndex);
-                this.lboxPatterns.Items.RemoveAt(this.lboxPatterns.SelectedIndex);
-
-                if(currentSong.PlayOrder.Count==0)
                 {
-                    this.patEditor.CurrentPattern = null;
+                    this.currentSong.PlayOrder.RemoveAt(this.lboxPatterns.SelectedIndex);
+                    int oldSelectedIndex = this.lboxPatterns.SelectedIndex;
+                    this.lboxPatterns.Items.RemoveAt(this.lboxPatterns.SelectedIndex);
+                    this.currentSong.PlayOrder.RemoveAt(oldSelectedIndex);
+                    this.lboxPatterns.Items.RemoveAt(oldSelectedIndex);
+
+
+                    if (currentSong.PlayOrder.Count == 0)
+                        if (currentSong.PlayOrder.Count == 0)
+                        {
+                            {
+                                this.patEditor.CurrentPattern = null;
+                                this.patEditor.CurrentPattern = null;
+                            }
+                        }
+                        else
+                        {
+                            if (currentSong.PlayOrder.Count > oldSelectedIndex)
+                            {
+                                this.lboxPatterns.SelectedIndex = oldSelectedIndex;
+                            }
+                            else
+                            {
+                                this.lboxPatterns.SelectedIndex = this.lboxPatterns.Items.Count - 1;
+                            }
+                        }
                 }
             }
             setFocusToEditor();
